@@ -18,11 +18,20 @@ router.get('/:id', (request, response) => {
     .catch(error => console.log("Error: " + error));
 });
 
+router.put('/:id', jsonParser, (request, response, next) => {
+  const { firstName, lastName, email } = request.body;
+  User.update({ firstName, lastName, email },
+    { returning: true, where: { id: request.params.id } }
+  )
+    .then(([updatedRows, [updatedUser]]) => response.json({ user: updatedUser, updatedRows: updatedRows }))
+    .catch(error => response.status(404).send(error.message));
+});
+
 router.post('/', jsonParser, (request, response) => {
   const { firstName, lastName, email } = request.body;
   User.create({ firstName, lastName, email })
     .then(user => response.json(user))
-    .catch(error => console.log("Error: " + error));
+    .catch(error => response.status(404).send(error.message));
 });
 
 

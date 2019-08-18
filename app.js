@@ -4,19 +4,10 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const db = require('./models');
 
-// const db = require('./config/database');
-
 const app = express();
 const PORT = 5000;
 
-// test database RTCPeerConnection
-// db.authenticate()
-//   .then(() => console.log('connected ok'))
-//   .catch(error => console.log('Error: ' + error));
-
 app.use('/users', require('./routes/users'));
-
-// app.use(express.bodyParser());
 
 app.use(bodyParser.json());
 app.use(
