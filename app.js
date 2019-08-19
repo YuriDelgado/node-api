@@ -8,6 +8,7 @@ const app = express();
 const PORT = 5000;
 
 app.use('/users', require('./routes/users'));
+app.use('/projects', require('./routes/projects'));
 
 app.use(bodyParser.json());
 app.use(
